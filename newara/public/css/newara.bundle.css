@@ -144,7 +144,6 @@ body .page-container {
 }
 
 .es-icon {
-	@extend .icon;
 	fill :  #017E8480 !important; 
 	stroke:  #017E8480 !important;
 }
@@ -192,7 +191,6 @@ a.onboard-spotlight .link-content:hover {
 }
 
 .dropdown-notifications .es-icon{
-	@extend .icon;
 	fill :  white !important; 
 	stroke:  white !important;
 }
@@ -400,7 +398,6 @@ input[type="checkbox"]:checked {
 }
 
 .btn.btn-secondary .es-icon{
-	@extend .icon;
 	fill :  white !important; 
 	stroke:  white !important;
 }
