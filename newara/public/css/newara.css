@@ -537,55 +537,37 @@ input[type="checkbox"]:checked {
 
 
 /* SIDE-BAR */
-/* 22/11/2026: Frappe 16.60 vẽ lại sidebar theo token Espresso, nền sáng (--surface-sidebar). Bản gốc sơn chữ
-   #f1f5f9 !important (giả định nền tối #1e293b) → chữ sáng trên nền sáng, không đọc được; hover còn lấy màu nền
-   sidebar nên mất hẳn. Trả màu về đúng token mặc định của Frappe (sidebar.scss, sidebar_header.scss, dock.scss). */
 
 .shell-header .header-title,
-.body-sidebar .sidebar-user-button .avatar-name-email span {
-    color: var(--ink-gray-8) !important;
-}
-
+.body-sidebar .sidebar-user-button .avatar-name-email span,
 .standard-sidebar-item .item-anchor {
-    color: var(--ink-gray-6) !important;
-    background-color: transparent !important;
-}
-
-.standard-sidebar-item .item-anchor.section-break {
-    color: var(--ink-gray-5) !important;
-}
-
-/* Dòng đang chọn / hover / focus: chữ đậm hơn, nền do chính .standard-sidebar-item của Frappe vẽ. */
-.standard-sidebar-item.active-sidebar .item-anchor,
-.standard-sidebar-item .item-anchor:not(.section-break):hover,
-.standard-sidebar-item .item-anchor:not(.section-break):focus,
-.standard-sidebar-item .item-anchor:not(.section-break):active {
-    color: var(--ink-gray-8) !important;
-}
-
-/* Nhãn và icon đi theo màu của dòng (currentColor) như thiết kế gốc. */
-.standard-sidebar-item .item-anchor .sidebar-item-label,
-.standard-sidebar-item .item-anchor .sidebar-item-icon,
-.standard-sidebar-item .item-anchor svg,
-.sidebar-item-icon {
-    color: inherit !important;
+    color: #f1f5f9 !important;
 }
 
 .shell-header:hover,
-.shell-header.hover {
-    background-color: var(--surface-gray-3) !important;
-}
-
-.shell-header.active-sidebar {
-    background-color: var(--surface-elevation-2) !important;
+.body-sidebar .sidebar-user-button:hover .avatar-name-email span,
+.body-sidebar .sidebar-user-button:focus .avatar-name-email span,
+.body-sidebar .sidebar-user-button:active .avatar-name-email span,
+.shell-header.active-sidebar,
+.standard-sidebar-item .item-anchor:hover,
+.standard-sidebar-item .item-anchor:focus,
+.standard-sidebar-item.active-sidebar .item-anchor,
+.standard-sidebar-item .item-anchor:active {
+    background-color: #f1f5f9 !important; 
+    color: var(--desk-sidebar-bg) !important;
 }
 
 .shell-header:hover .header-title,
 .shell-header.active-sidebar .header-title,
-.body-sidebar .sidebar-user-button:hover .avatar-name-email span,
-.body-sidebar .sidebar-user-button:focus .avatar-name-email span,
-.body-sidebar .sidebar-user-button:active .avatar-name-email span {
-    color: var(--ink-gray-8) !important;
+.standard-sidebar-item.active-sidebar .item-anchor .sidebar-item-label,
+.standard-sidebar-item.active-sidebar .item-anchor svg,
+.standard-sidebar-item .item-anchor:hover .sidebar-item-label,
+.standard-sidebar-item .item-anchor:hover .sidebar-item-icon,
+.standard-sidebar-item .item-anchor:hover svg,
+.standard-sidebar-item .item-anchor:focus .sidebar-item-label,
+.standard-sidebar-item .item-anchor:focus .sidebar-item-icon,
+.standard-sidebar-item .item-anchor:focus svg {
+    color: var(--desk-sidebar-bg) !important;
 }
 
 .text-secondary {
@@ -593,7 +575,73 @@ input[type="checkbox"]:checked {
 }
 
 .dock-item,
+.sidebar-item-icon {
+  color: #f1f5f9 !important;
+}
+
 .dock-item.active,
 .dock-item:hover {
-    color: var(--ink-gray-8) !important;
+  color: var(--desk-sidebar-bg) !important;
+}
+
+/* 22/11/2026: Frappe 16.60 — sidebar vẽ lại theo token Espresso (nền sáng, mực xám đậm).
+   Giữ màu gốc của newara: nền tối #1e293b, chữ sáng #f1f5f9. */
+
+/* `html:root` thắng specificity của `:root` / `[data-theme]` trong desk.bundle.css, không phụ thuộc thứ tự nạp. */
+html:root {
+    --desk-sidebar-bg: #1e293b;
+}
+
+.body-sidebar {
+    background: var(--desk-sidebar-bg) !important;
+}
+
+/* Mũi tên xổ nhóm, phím tắt: mặc định là mực xám đậm, chìm trên nền tối. */
+.body-sidebar .drop-icon,
+.body-sidebar .drop-icon svg,
+.shell-header .drop-icon,
+.shell-header .drop-icon svg,
+.body-sidebar .keyboard-shortcut {
+    color: #cbd5e1 !important;
+    stroke: currentColor;
+}
+
+/* Tiêu đề nhóm (Kho, Dịch vụ ngoài…): Frappe đặt --ink-gray-5 !important. */
+.standard-sidebar-item .item-anchor.section-break {
+    color: #f1f5f9 !important;
+}
+
+/* Hover cả dòng: Frappe tô --surface-gray-2 lên .standard-sidebar-item; dùng cùng màu sáng với anchor của newara
+   để mũi tên nằm ngoài anchor không bị lệch nền. Trên nền sáng đó mũi tên phải tối lại. */
+.body-sidebar .standard-sidebar-item:not(.active-sidebar):has(a:not(.section-break)):hover {
+    background-color: #f1f5f9 !important;
+}
+
+.body-sidebar .standard-sidebar-item:hover .drop-icon,
+.body-sidebar .standard-sidebar-item:hover .drop-icon svg,
+.body-sidebar .standard-sidebar-item.active-sidebar .drop-icon,
+.body-sidebar .standard-sidebar-item.active-sidebar .drop-icon svg,
+.body-sidebar .standard-sidebar-item:hover .keyboard-shortcut,
+.shell-header:hover .drop-icon,
+.shell-header:hover .drop-icon svg,
+.shell-header.active-sidebar .drop-icon,
+.shell-header.active-sidebar .drop-icon svg {
+    color: var(--desk-sidebar-bg) !important;
+}
+
+/* Tiêu đề nhóm không đổi nền khi hover (giống Frappe), chữ giữ màu sáng. */
+.standard-sidebar-item .item-anchor.section-break:hover,
+.standard-sidebar-item .item-anchor.section-break:focus,
+.standard-sidebar-item .item-anchor.section-break:active {
+    background-color: transparent !important;
+    color: #f1f5f9 !important;
+}
+
+.standard-sidebar-item .item-anchor.section-break:hover .sidebar-item-label {
+    color: #f1f5f9 !important;
+}
+
+.body-sidebar .standard-sidebar-item:has(.section-break):hover .drop-icon,
+.body-sidebar .standard-sidebar-item:has(.section-break):hover .drop-icon svg {
+    color: #cbd5e1 !important;
 }
