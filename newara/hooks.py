@@ -13,7 +13,7 @@ app_license = "mit"
 # 22/11/2026: dùng bundle có hash (bench build sinh newara.bundle.<HASH>.css) để trình duyệt tự nạp bản mới
 # sau mỗi lần sửa, không cần hard refresh. Nguồn: newara/public/css/newara.bundle.css
 app_include_css = "newara.bundle.css"
-# app_include_js = "/assets/newara/js/newara.js"
+app_include_js = "newara.bundle.js"
 
 # include js, css files in header of web template
 web_include_css = "newara.bundle.css"
